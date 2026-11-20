@@ -1,0 +1,30 @@
+# Copy to terraform.tfvars and fill in your values. terraform.tfvars is git-ignored.
+
+region = "eu-central-1" # the region of your IAM Identity Center instance
+
+# Microsoft Entra ID. See docs/entra-setup.md.
+entra_tenant_id = "00000000-0000-0000-0000-000000000000"
+entra_api_audiences = [
+  "11111111-1111-1111-1111-111111111111",       # client ID of the service app
+  "api://11111111-1111-1111-1111-111111111111", # the same, as an application ID URI
+]
+
+# If your Identity Center user names are short names (alex) and the sign-in names are
+# alex@contoso.onmicrosoft.com, list the domain here. Leave empty otherwise.
+strip_username_domains = ["contoso.onmicrosoft.com"]
+
+# Who can approve requests for which AWS account. Names are IAM Identity Center user names.
+# Optional: leave this out to manage the accounts table directly in DynamoDB.
+accounts = {
+  "111122223333" = {
+    owners   = ["alex"]
+    deputies = ["sam"]
+  }
+}
+
+# Safe defaults. Change them deliberately.
+max_duration_hours  = 8
+allow_self_approval = false # set to true only to try the solution alone
+
+# Recommended: notify someone when a workflow fails.
+# alarm_topic_arn = "arn:aws:sns:eu-central-1:111122223333:security-alerts"

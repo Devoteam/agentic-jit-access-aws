@@ -1,0 +1,25 @@
+[project]
+name = "agentic-jit-access-aws"
+version = "0.1.0"
+description = "Just-in-time AWS access requested by AI agents in Microsoft Teams, on AWS IAM Identity Center and Amazon Bedrock AgentCore."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "Apache-2.0" }
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::pydantic.warnings.PydanticDeprecatedSince20",
+    "ignore:.*alias.*attribute.*:UserWarning",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+src = ["src", "tests", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["B008", "UP038"]
